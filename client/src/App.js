@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      Clinic Calendar
-    </div>
-  );
+export class App extends Component {
+  render() {
+    return (
+      <div>
+        Clinic Mobile
+      </div>
+    );
+  }
 }
 
 export default App;
