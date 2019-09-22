@@ -1,0 +1,45 @@
+@media(max-width: 992px) {
+	.content {
+		flex-wrap: wrap;
+	
+		&__text {
+			margin-right: 0;
+			flex-basis: 100%;
+			text-align: center;
+			font-size: 14px;
+		}
+
+		&__desc {
+			h1 {
+				font-size: 30px;
+			}
+		}
+
+		&__explain {
+			max-width: 100%;
+			width: 100%;
+			justify-content: space-around;
+		}
+
+		&__line {
+			margin-right: 0;
+		}
+
+		&__img {
+			margin-top: 30px;
+		}
+
+		&__bg {
+			display: none;
+		}
+	}
+}
+
+@media(max-width: 576px) {
+	.content {
+		&__explain {
+			flex-direction: column;
+		}
+	}
+	
+}
