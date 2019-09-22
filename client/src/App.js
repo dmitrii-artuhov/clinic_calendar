@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Header from './components/Header/Header';
 import Content from './components/Content/Content';
 import Offer from './components/Offer/Offer';
+import Footer from './components/Footer/Footer';
 
 // styles
 import './index.scss';
@@ -15,6 +16,7 @@ export class App extends Component {
         <Header />
         <Content />
         <Offer />
+        <Footer />
       </Fragment>
     );
   }
