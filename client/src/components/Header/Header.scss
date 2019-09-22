@@ -1,0 +1,33 @@
+.header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 15px 10px;
+	position: relative;
+
+	&__controlls {
+		&__button {
+			cursor: pointer;
+			transition: .2s ease-in-out;
+			margin-left: 15px;
+			color: #fff;
+			background-color: #2E59C8;
+			border: none;
+			display: inline-block;
+			font-weight: 400;
+			text-align: center;
+			outline: none;
+			padding: .375em .75em;
+			font-size: 14px;
+			line-height: 1.5;
+			border-radius: .25rem;
+			box-sizing: border-box;
+
+			&:hover {
+				box-shadow: 1px 0 7px rgba(0, 0, 0, .2);
+			}
+		}
+	}
+}
