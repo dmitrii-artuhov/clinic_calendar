@@ -3,9 +3,11 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	margin-top: 100px;
 
 	&__info {
 		text-align: center;
+		max-width: 710px;
 
 		h2 {
 			font-family: 'Montserrat', sans-serif;
