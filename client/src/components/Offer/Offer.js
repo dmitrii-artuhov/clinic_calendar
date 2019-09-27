@@ -18,7 +18,7 @@ export class Offer extends Component {
 						</p>
 					</div>
 					<div className="offer__register">
-						<button className="offer__button">Регистрация</button>
+						<a className="offer__button" href="#header">Регистрация</a>
 					</div>
 				</div>
 			</section>
