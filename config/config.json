@@ -1,4 +1,9 @@
 {
 	"PORT": 5000,
-	"MongoURI": "mongodb+srv://Dmitrii:_-ygFhaDS7vX738@cluster0-ts6gf.gcp.mongodb.net/cliniccalendar?retryWrites=true&w=majority"
+	"MongoURI": "mongodb+srv://Dmitrii:_-ygFhaDS7vX738@cluster0-ts6gf.gcp.mongodb.net/cliniccalendar?retryWrites=true&w=majority",
+	"jwtSecret": "JWT Access Secret",
+	"jwtExpiration": 600,
+	"PASSWORD": "krd 111",
+	"EMAIL_USER": "cliniccalendar2019@gmail.com",
+	"EMAIL_PASSWORD": "cliniccalendar2019project"
 }
