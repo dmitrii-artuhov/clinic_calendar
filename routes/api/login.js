@@ -28,15 +28,15 @@ router.post('/login', (req, res) => {
 				
 				verificationToken.save()
 					.then((token) => {
-						console.log('User not verified, another email is sent');
+						console.log('Аккаунт пользователя не подвержден, отправлен еще один email');
 						verificationSend(res, user.email, token.token);
 					})
 					.catch((err) => {
 						console.log(err);
-						res.status(500).json({ msg: 'Could not send verification email' });
+						res.status(500).json({ msg: 'Не удалось отправить email c кодом подверждения' });
 					})
 
-				return res.status(400).json({ msg: 'User not verified, another email is sent' });
+				return res.status(400).json({ msg: 'Аккаунт пользователя не подвержден, отправлен еще один email' });
 			}
 			
 			bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -66,12 +66,12 @@ router.post('/login', (req, res) => {
 							console.error(err);
 						});
 				} else {
-					res.status(400).json({ msg: 'Invalid credencials' });
+					res.status(400).json({ msg: 'Введены неверные данные' });
 				}
 			});
 		})
 		.catch((err) => {
-			res.status(404).json({ msg: 'User not found' });
+			res.status(404).json({ msg: 'Пользователь не найден' });
 			console.log(err);
 		});
 });
@@ -94,8 +94,8 @@ const verificationSend = async (res, userEmail, verificatinToken) => {
 	const mailOptions = {
 		from: '"ClinicCalendar DevTeam" <cliniccalendar2019@gmail.com>', // sender address
 		to: userEmail, // list of receivers
-		subject: 'Account Verification Confirmation', // Subject line
-		text: `Hello,\nPlease verify your account by clicking the link: \nhttp:\/\/localhost:3000\/verify\/${verificatinToken}`
+		subject: 'Подверждение аккаунта', // Subject line
+		text: `Здравствуйте,\nподтвердите свой аккаунт, перейдя по ссылке: \nhttp:\/\/localhost:3000\/verify\/${verificatinToken}`
 	};
 
 	await transporter.sendMail(mailOptions, (err, info) => {

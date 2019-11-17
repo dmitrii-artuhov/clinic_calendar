@@ -28,7 +28,7 @@ router.post('/verify', (req, res) => {
 					user.isVerified = true;
 					user.save()
 						.then(() => {
-							res.json({ msg: 'Your account is successfuly verified, procced to the homepage to login' });
+							res.json({ msg: 'Ваш аккаун успешно подтвержден, пройдите на Главную' });
 						})
 						.catch((err) => {
 							console.error(err);

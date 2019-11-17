@@ -12,13 +12,13 @@ const ResetToken = require('../../models/ResetToken');
 router.post('/forgot', (req, res) => {
 	const { email } = req.body;
 	if(!email) {
-		return res.status(400).json({ msg: 'email is required' });
+		return res.status(400).json({ msg: 'Введите email' });
 	}
 
 	User.findOne({ email })
 		.then((user) => {
 			if(!user) {
-				return res.status(404).json({ msg: 'User not found' });
+				return res.status(404).json({ msg: 'Пользователь не найден' });
 			}
 
 			const resetToken = new ResetToken({
@@ -37,7 +37,7 @@ router.post('/forgot', (req, res) => {
 		})
 		.catch((err) => {
 			console.log(err);
-			res.status(404).json({ msg: 'User not found' });
+			res.status(404).json({ msg: 'Пользователь не найден' });
 		});
 });
 
@@ -52,7 +52,7 @@ router.post('/reset', (req, res) => {
 			User.findOne({ _id: token.userId })
 				.then((user) => {
 					if(!user) {
-						return res.status(404).json({ msg: 'No matching user found' });
+						return res.status(404).json({ msg: 'Пользователь не найден' });
 					}
 
 					bcrypt.genSalt(10, (err, salt) => {
@@ -73,7 +73,7 @@ router.post('/reset', (req, res) => {
 								.then(() => {
 									token.remove()
 										.then(() => {
-											res.json({ msg: 'Password is changed, you better remember it this time...' });
+											res.json({ msg: 'Пароль изменен, на этот раз лучше его запомнить...' });
 										})
 										.catch((err) => {
 											console.log(err);
@@ -89,49 +89,13 @@ router.post('/reset', (req, res) => {
 				})
 				.catch((err) => {
 					console.log(err);
-					res.status(404).json({ msg: 'No matching user found' });
+					res.status(404).json({ msg: 'Пользователь не найден' });
 				});
 		})
 		.catch((err) => {
 			console.log(err);
 			res.status(404).json({ msg: 'No token found' });
 		});
-
-/*	User.findOne({ email })
-		.then((user) => {
-			if (!user) {
-				return res.status(404).json({ msg: 'User not found' });
-			}
-
-			bcrypt.genSalt(10, (err, salt) => {
-				if(err) {
-					console.error('Salting fail: ', err);
-					return res.status(400).json({ msg: 'Reseting Fail' });
-				}
-		
-				bcrypt.hash(password, salt, (err, hash) => {
-					if(err) {
-						console.error('Hashing fail: ', err);
-						return res.status(400).json({ msg: 'Reseting fail' });
-					}
-
-					user.password = hash;
-
-					user.save()
-						.then(() => {
-							res.json({ msg: 'Password is changed, you better remember it this time...' });
-						})
-						.catch((err) => {
-							console.error(err);
-							res.status(500).json({ msg: 'Failed while password change' });
-						});
-				});
-			})
-		})
-		.catch((err) => {
-			console.error(err);
-			res.status(404).json({ msg: 'User not found' });
-		});*/
 });
 
 
@@ -152,9 +116,9 @@ const resetSend = async (res, userEmail, resetToken) => {
 	const mailOptions = {
 		from: '"ClinicCalendar DevTeam" <cliniccalendar2019@gmail.com>', // sender address
 		to: userEmail, // list of receivers
-		subject: 'Password Reset', // Subject line
-		text: `Hello,\nPlease proceed to changing your password by clicking the link: http:\/\/localhost:3000/reset/${resetToken}
-		\nIf you did not want to change your password, please check your accound in terms of hacking.
+		subject: 'Смена пароля', // Subject line
+		text: `Здравствуйте,\nПройдите по ссылке для сменя пароля: http:\/\/localhost:3000/reset/${resetToken}
+		\n
 		`
 	};
 
@@ -163,9 +127,9 @@ const resetSend = async (res, userEmail, resetToken) => {
 
 		if (err) {
 			console.error(err);
-			return res.status(500).json({ msg: 'Could not send email for password changing, try again' });
+			return res.status(500).json({ msg: 'Не удалось отправить email' });
 		}
-		res.json({ msg: `An email has been sent to ${userEmail}` });
+		res.json({ msg: `Email отправлен на ${userEmail}` });
 	});
 }
 

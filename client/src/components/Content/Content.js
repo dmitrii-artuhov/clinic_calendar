@@ -12,9 +12,7 @@ export class Content extends Component {
 					<div className="content__desc">
 						<h1>Clinic Calendar</h1>
 						<p>
-							Специализированное программное
-							обеспечение, расширяющее возможности пациентов и предоставляющее возможность 
-							гибкой настройки расписания
+							Приложение, позволяющее экономить время и получать только актуальную информацию о вашем лечащем враче
 						</p>
 					</div>
 
@@ -24,15 +22,15 @@ export class Content extends Component {
 								Простота использования
 							</div>
 							<div className="content__item">
-								Расписание всегда под рукой
+								Контакты врача всегда под рукой
 							</div>
 						</div>
 						<div className="content__line">
 							<div className="content__item">
-								Структурированная информация 
+								Никаких звонков в справочные отделения
 							</div>
 							<div className="content__item">
-								Структурированная информация 
+								Связывайтесь с врачом напрямую
 							</div>
 						</div>
 					</div>

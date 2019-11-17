@@ -7,7 +7,7 @@ export class Verify extends Component {
 		super(props);
 
 		this.state = {
-			msg: ''
+			msg: '',
 		}
 	}
 

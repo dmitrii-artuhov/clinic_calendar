@@ -39,3 +39,14 @@
 .submit__button {
 	background-color: #2E59C8 !important;
 }
+
+.search {
+	margin: 50px 0 !important;
+
+	&-field {
+		color: #4A4A4A;
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 300;
+		font-size: 30px;
+	}
+}

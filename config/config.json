@@ -3,7 +3,7 @@
 	"MongoURI": "mongodb+srv://Dmitrii:_-ygFhaDS7vX738@cluster0-ts6gf.gcp.mongodb.net/cliniccalendar?retryWrites=true&w=majority",
 	"jwtSecret": "JWT Access Secret",
 	"jwtExpiration": 600,
-	"PASSWORD": "krd 111",
+	"PASSWORD": "krd",
 	"EMAIL_USER": "cliniccalendar2019@gmail.com",
 	"EMAIL_PASSWORD": "cliniccalendar2019project"
 }

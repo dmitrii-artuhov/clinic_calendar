@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 import Home from './pages/Home/Home';
-import Profile from './pages/Profile/Profile';
+import Account from './pages/Account/Account';
 import Verify from './pages/Verify/Verify';
 import NotFound from './pages/NotFound/NotFound';
 
@@ -19,7 +19,7 @@ export class App extends Component {
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/account" component={Account} />
           <Route path="/forgot" component={PasswordRecovery} />
           <Route path="/verify/:verificationToken" component={Verify} />
           <Route path="/reset/:resetToken" component={PasswordReset} />

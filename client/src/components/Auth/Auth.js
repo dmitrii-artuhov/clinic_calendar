@@ -16,7 +16,13 @@ import {
   Label,
 	Input,
 	CustomInput,
-	Spinner
+	Spinner,
+	InputGroup,
+	InputGroupAddon,
+	Card,
+	CardText,
+	CardBody,
+	CardTitle,
 } from 'reactstrap';
 
 import Message from '../Message/Message';
@@ -30,6 +36,8 @@ export class Auth extends Component {
 		super(props);
 
 		this.state = {
+			search: '',
+			searchedUser: null,
 			user: null,
 			isAuthenticated: false,
 			error: null,
@@ -58,7 +66,7 @@ export class Auth extends Component {
 
 					this.setState({
 						...this.state,
-						user: res ? res.user : {},
+						user: res ? res.user : null,
 						isAuthenticated: res ? true : false
 					});
 				})
@@ -123,6 +131,16 @@ export class Auth extends Component {
 				...this.state.loginModal,
 				[e.target.name]: e.target.value
 			}
+		});
+	}
+
+	inputValue = (e) => {
+		this.setState({
+			...this.state,
+			error: null,
+			info: null,
+			[e.target.name]: e.target.value,
+			searchedUser: null
 		});
 	}
 
@@ -231,14 +249,58 @@ export class Auth extends Component {
 		window.location.replace('/');
 	}
 
-	// togglePasswordRecovery = (e) => {
-	// 	e.preventDefault();
+	searchUser = () => {
+		this.clearErrors();
+		axios.post('/api/users/search', { email: this.state.search, role: this.state.user.role })
+			.then((res) => {
+				if(!res.data.user) {
+					this.setState({
+						error: res.data.msg
+					});
+					return;
+				}
 
-	// 	this.setState({
-	// 		...this.state,
-	// 		passwordRecovery: !this.state.passwordRecovery
-	// 	});
-	// }
+				this.setState({
+					...this.state,
+					searchedUser: res.data.user
+				});
+			})
+			.catch((err) => {
+				console.error(err.response);
+			});
+	}
+
+	addToList = () => {
+		// this.clearErrors();
+
+		if (!this.state.isAuthenticated) {
+			this.setState({
+				...this.state,
+				error: 'Необходимо войти в систему'
+			});
+		} else if (this.state.user.email === this.state.search) {
+			this.setState({
+				...this.state,
+				error: 'Невозможно добавить себя'
+			});
+		} else {
+			axios.post('/api/users/addfeatured', { id: this.state.user._id, featuredId: this.state.searchedUser._id })
+				.then((res) => {
+					console.log(res.data);
+					this.setState({
+						...this.state,
+						error: res.data.msg
+					});
+				})
+				.catch((err) => {
+					this.setState({
+						...this.state,
+						error: err.response.data.msg
+					});
+					console.error(err.response);
+				});
+		}
+	}
 
 	render() {
 		return (
@@ -257,7 +319,7 @@ export class Auth extends Component {
 						) : (
 							<Fragment>
 								<Link to={{
-									pathname: '/profile',
+									pathname: '/account',
 									state: {
 										user: this.state.user,
 									}
@@ -402,6 +464,30 @@ export class Auth extends Component {
             </Form>
           </ModalBody>
         </Modal>
+		
+				{this.state.user != null ?
+				<FormGroup className="search">
+					<Label className="search-field">Найдите своего врача или пациента:</Label>
+					<InputGroup>
+						<Input type="text" name="search" placeholder="Например, thedopestdoctor228@gmail.com" onInput={this.inputValue} />
+						<InputGroupAddon addonType="append">
+							<Button color="primary" onClick={this.searchUser}>Поиск</Button>
+						</InputGroupAddon>
+					</InputGroup>
+					<br />
+					{this.state.error ? <Message msg={this.state.error} type="info" /> : ''}
+					{this.state.searchedUser ? (
+						<Card className="user-list__card">
+							<CardBody>
+								<CardTitle>{this.state.searchedUser.username}</CardTitle>
+								<CardText>Email: {this.state.searchedUser.email}</CardText>
+								<CardText>Phone: {this.state.searchedUser.phone}</CardText>
+								<Button color="primary" onClick={this.addToList}>Добавить</Button>
+							</CardBody>
+						</Card>
+					) : ''}
+				</FormGroup >
+				: ''}
 			</section>
 		);
 	}

@@ -17,14 +17,14 @@ router.post('/register', (req, res) => {
 	const { username, email, password, role, phone } = req.body;
 
 	if(!email || !username || !password || !role || !phone) {
-		return res.status(400).json({ msg: 'Enter all fields, please' });
+		return res.status(400).json({ msg: 'Введите все поля' });
 	}
 	
 	if(role === 'patient') {
 		User.findOne({ email })
 			.then((user) => {
 				if(user) {
-					return res.status(400).json({ msg: 'User already exists' });
+					return res.status(400).json({ msg: 'Пользователь уже существует' });
 				}
 				
 				const newPatient = new Patient({
@@ -46,11 +46,11 @@ router.post('/register', (req, res) => {
 		User.findOne({ email })
 			.then((user) => {
 				if(user) {
-					return res.status(400).json({ msg: 'User already exists' });
+					return res.status(400).json({ msg: 'Пользователь уже существует' });
 				}
 
 				const { mark } = req.body;
-				if(!mark) return res.status(400).json({ msg: 'Enter all fields, please' });
+				if(!mark) return res.status(400).json({ msg: 'Пользователь уже существует' });
 
 				const newDoctor = new Doctor({
 					username,
@@ -61,7 +61,7 @@ router.post('/register', (req, res) => {
 					mark
 				});
 
-				if(mark !== config.PASSWORD) return res.status(400).json({ msg: 'Invalid clinic password' });
+				if(mark !== config.PASSWORD) return res.status(400).json({ msg: 'Неверный код клиники' });
 
 				jwtRegistration(res, newDoctor);
 			})
@@ -71,7 +71,7 @@ router.post('/register', (req, res) => {
 			})
 
 	} else {
-		return res.status(400).json({ msg: 'Invalid user role provided' });
+		return res.status(400).json({ msg: 'Неподходящая роль пользователя' });
 	}
 });
 
@@ -119,7 +119,7 @@ const jwtRegistration = (res, model) => {
 								})
 								.catch((err) => {
 									console.log(err);
-									res.status(500).json({ msg: 'Could not send verification email' });
+									res.status(500).json({ msg: 'Не удалось отправить email с подверждением почты' });
 								})
 							// Issuing all token to user
 							// const token = jwt.sign({ user: returnedUser	}, config.jwtSecret, { expiresIn: config.jwtExpiration },
@@ -166,9 +166,9 @@ const verificationSend = async (res, userEmail, verificatinToken) => {
 	const mailOptions = {
 		from: '"ClinicCalendar DevTeam" <cliniccalendar2019@gmail.com>', // sender address
 		to: userEmail, // list of receivers
-		subject: 'Account Verification', // Subject line
-		text: `Hello,\nPlease verify your account by clicking the link: \nhttp:\/\/localhost:3000\/verify\/${verificatinToken}
-		\nIf you have not created your account on our platform, please ignore this message.
+		subject: 'Потверждение аккаунта', // Subject line
+		text: `Здравствуйте,\nПодвердите свой аккаунт, перейдя по ссылке: \nhttp:\/\/localhost:3000\/verify\/${verificatinToken}
+		\n
 		`
 	};
 
@@ -177,9 +177,9 @@ const verificationSend = async (res, userEmail, verificatinToken) => {
 
 		if (err) {
 			console.log(err);
-			return res.status(500).json({ msg: 'Could not send verification email, try again' });
+			return res.status(500).json({ msg: 'Не удалось отправить email, попробуйте снова' });
 		}
-		res.json({ msg: `A verification email has been sent to ${userEmail}` });
+		res.json({ msg: `Email с подверждением аккаунта отправлен на ${userEmail}` });
 	});
 }
 

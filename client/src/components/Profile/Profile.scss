@@ -1,0 +1,13 @@
+.profile{
+	margin-bottom: 50px;
+
+	&__addon-tag span.input-group-text {
+		min-width: 150px;
+		background-color: #007bff;
+		color: #fff;
+	}
+
+	&__info-text {
+		margin-bottom: 25px;
+	}	
+}

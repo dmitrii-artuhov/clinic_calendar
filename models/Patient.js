@@ -6,7 +6,8 @@ const PatientSchema = new Schema({
 	role: {
 		type: String,
 		default: 'patient'
-	}
+	},
+	featuredUsers: [{ type: Schema.Types.ObjectId, ref: 'Doctor' }]
 });
 
 const Patient = User.discriminator('Patient', PatientSchema);

@@ -1,0 +1,11 @@
+.user-list{
+	margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	&__card {
+		margin: 0 0 10px 0;
+		min-width: 300px;
+	}
+}
